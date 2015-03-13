@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<videoSource>
+	<meta masterVideoId="9D61EF571439DAC2CC1CB21FA7062EFA1C02" serviceId="2010" count="161">
+		<subject><![CDATA[AOA - "Miniskirt" Music Video Teaser Drama ver.]]></subject>
+		<cover type="single">
+			<source><![CDATA[http://tvcast2.phinf.naver.net/20141024_38/KR15182_141415903259149XDo_JPEG/30701234129B3416263_muploader_k_480P_854_1024_128_logo.jpg]]></source>
+		</cover>
+		<share count="0" usable="true" onlyInnerServices="false"/>
+		<user id="muploader_k" name="업로더11"/>
+		<relationVideo type="url"><![CDATA[../test/xml/relativeClip.xml]]></relationVideo>
+		<apiList>             
+			<api name="count"><![CDATA[http://dev-global-nvapis.line.me/etc/pc.nhn]]></api>             
+			<api name="playTime"><![CDATA[http://dev-global-nvapis.line.me/pt.html]]></api>         
+		</apiList> 
+	</meta>
+	<videos type="video">
+		<video id="DCF3FFC22231176C9FCED329A5C8A2D97549" useP2P="false" duration="33.25" width="256" height="144" type="H264" >
+			<encodingOption id="144P_256_100_32" name="144P" profile="BASE"/>
+			<bitrate video="100.0" audio="32.0"/>
+			<p2pMetaUrl></p2pMetaUrl>
+			<source><![CDATA[../test/AOA_Miniskirt_144P_256_100_32.mp4]]></source>
+		</video>
+		<video id="928AFC3B73204FB4FA446E39FAF4C3E5B461" useP2P="false" duration="33.189" width="480" height="270" type="H264" >
+			<encodingOption id="270P_480_500_128" name="270P" profile="BASE"/>
+			<bitrate video="350.0" audio="96.0"/>
+			<p2pMetaUrl></p2pMetaUrl>
+			<source><![CDATA[../test/AOA_Miniskirt_270P_480_500_128.mp4]]></source>
+		</video>
+		<video id="9D61EF571439DAC2CC1CB21FA7062EFA1C02" useP2P="false" duration="33.189" width="854" height="480" type="H264" isDefault="true">
+			<encodingOption id="480P_854_1024_128" name="480P" profile="MAIN"/>
+			<bitrate video="1024.0" audio="128.0"/>
+			<p2pMetaUrl></p2pMetaUrl>
+			<source><![CDATA[../test/AOA_Miniskirt_480P_854_1024_128.mp4]]></source>
+		</video>
+		<video id="9C25886F9C02FADD9A58B1B943DB31A9A2C7" useP2P="false" duration="33.189" width="1280" height="720" type="H264" >
+			<encodingOption id="720P_1280_2048_192_B" name="720P" profile="MAIN"/>
+			<bitrate video="2048.0" audio="192.0"/>
+			<p2pMetaUrl></p2pMetaUrl>
+			<source><![CDATA[../test/AOA_Miniskirt_720P_1280_2048_192_B.mp4]]></source>
+		</video>
+		<video id="4AFB81EFB4882A0A96CA0DFA6DEBDBCA80B1" useP2P="false" duration="33.189" width="1920" height="1080" type="H264" >
+			<encodingOption id="1080P_1920_5120_192" name="1080P" profile="HIGH"/>
+			<bitrate video="5120.0" audio="192.0"/>
+			<p2pMetaUrl></p2pMetaUrl>
+			<source><![CDATA[../test/AOA_Miniskirt_1080P_1920_5120_192.mp4]]></source>
+		</video>
+	</videos>
+	<thumbnails>
+		<thumbnail time="3.0"><![CDATA[http://tv-rmcnmv-pt.line-apps.com/tvcast/2014/10/24/1346/30701234129B3416263_muploader_k_480P_854_1024_128_s80_2.jpg]]></thumbnail>
+		<thumbnail time="10.0"><![CDATA[http://tv-rmcnmv-pt.line-apps.com/tvcast/2014/10/24/1346/30701234129B3416263_muploader_k_480P_854_1024_128_s80_4.jpg]]></thumbnail>
+		<thumbnail time="17.0"><![CDATA[http://tv-rmcnmv-pt.line-apps.com/tvcast/2014/10/24/1346/30701234129B3416263_muploader_k_480P_854_1024_128_s80_6.jpg]]></thumbnail>
+		<thumbnail time="23.0"><![CDATA[http://tv-rmcnmv-pt.line-apps.com/tvcast/2014/10/24/1346/30701234129B3416263_muploader_k_480P_854_1024_128_s80_8.jpg]]></thumbnail>
+		<thumbnail time="30.0"><![CDATA[http://tv-rmcnmv-pt.line-apps.com/tvcast/2014/10/24/1346/30701234129B3416263_muploader_k_480P_854_1024_128_s80_10.jpg]]></thumbnail>
+	</thumbnails>
+</videoSource>

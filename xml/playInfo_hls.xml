@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<videoSource>
+	<meta masterVideoId="2D6F23BC019FE37F92A82EC42540C7F2E28D" serviceId="23001" count="172">
+		<subject><![CDATA[가나다라마바사아자차타카파하]]></subject>
+		<cover type="single">
+			<source><![CDATA[../test/logo.jpg]]></source>
+		</cover>
+		
+		<share count="0" usable="true" onlyInnerServices="false"/>
+		<user id="kymr" name="김용마루"/>
+		<relationVideo type="url"><![CDATA[../test/xml/relativeClip.xml]]></relationVideo>
+		
+		<apiList>             
+			<api name="count"><![CDATA[http://dev-global-nvapis.line.me/etc/pc.nhn]]></api>             
+			<api name="playTime"><![CDATA[http://dev-global-nvapis.line.me/pt.html]]></api>         
+		</apiList> 
+	</meta>
+	
+	<videos type="video">
+		<video id="0FDADEE8F2FAEE915E7049054046706BF6E9" useP2P="false" duration="13.029" width="480" height="270" type="H264" >
+			<encodingOption id="270P_480_500_64" name="270P" profile="BASE"/>
+			<bitrate video="500.0" audio="64.0"/>
+			<p2pMetaUrl></p2pMetaUrl>
+			<source><![CDATA[http://dev.asia.vod.linetv.edgesuite.net/global/read/channel_2014_03_20_1/0C403410DB3D70283001B636F07F1AC_kymr_270P_480_500_64.mp4?__gda__=1421041847_ec790b809443b1bf17cf42d832763214]]></source>
+		</video>
+		<video id="2D6F23BC019FE37F92A82EC42540C7F2E28D" useP2P="false" duration="13.029" width="854" height="480" type="H264" isDefault="true">
+			<encodingOption id="480P_854_1024_128" name="480P" profile="BASE"/>
+			<bitrate video="1024.0" audio="128.0"/>
+			<p2pMetaUrl></p2pMetaUrl>
+			<source><![CDATA[http://dev.asia.vod.linetv.edgesuite.net/global/read/channel_2014_03_20_1/0C403410DB3D70283001B636F07F1AC_kymr_480P_854_1024_128.mp4?__gda__=1421041847_64e84178113eed5c7c6821ed58b26348]]></source>
+		</video>
+	</videos>
+	
+	<streams>
+		<stream type="HLS">
+			<key type="param" name="__gda__">
+				1421751353_91521eb729d79e98baffad2e55ee6864
+			</key>
+			<source>
+				<![CDATA[http://dev.gb.vod.linetv.edgesuite.net/global/read/channel_2015_01_09_1/34601E3410AE3C92E63_muploader_o_720P_1280_2048_192_adoptive.m3u8]]>
+			</source>
+		</stream>
+	</streams>
+	
+	<captions>
+		<caption language="ko" country="KR" locale="ko_KR" label="한국어"><![CDATA[http://dev.asia.vod.linetv.edgesuite.net/global_meta/read/channel_2014_03_20_1/0C403410DB3D70283001B636F07F1AC_kymr_480P_854_1024_128-1395284398655_ko_KR.ttml?__gda__=1421041847_4b999ddeb0c6a07c8655830f02f9ff66]]></caption>
+	</captions>
+	
+	<thumbnails>
+		<thumbnail time="1.0"><![CDATA[http://dev.uploader.rmcnmv.naver.com/channel/2014/03/20/1433/0C403410DB3D70283001B636F07F1AC_kymr_480P_854_1024_128_s80_2.jpg]]></thumbnail>
+		<thumbnail time="4.0"><![CDATA[http://dev.uploader.rmcnmv.naver.com/channel/2014/03/20/1433/0C403410DB3D70283001B636F07F1AC_kymr_480P_854_1024_128_s80_4.jpg]]></thumbnail>
+		<thumbnail time="6.0"><![CDATA[http://dev.uploader.rmcnmv.naver.com/channel/2014/03/20/1433/0C403410DB3D70283001B636F07F1AC_kymr_480P_854_1024_128_s80_6.jpg]]></thumbnail>
+		<thumbnail time="9.0"><![CDATA[http://dev.uploader.rmcnmv.naver.com/channel/2014/03/20/1433/0C403410DB3D70283001B636F07F1AC_kymr_480P_854_1024_128_s80_8.jpg]]></thumbnail>
+		<thumbnail time="11.0"><![CDATA[http://dev.uploader.rmcnmv.naver.com/channel/2014/03/20/1433/0C403410DB3D70283001B636F07F1AC_kymr_480P_854_1024_128_s80_10.jpg]]></thumbnail>
+	</thumbnails>
+</videoSource>

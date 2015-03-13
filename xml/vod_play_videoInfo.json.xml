@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<videoSource>
+	<meta masterVideoId="60E53C1355FDEA6EC4CFA291A21DA430D5D2" serviceId="23001" count="0" home="http://dev.tvcast.naver.com/absoluteduo">
+		<subject link="http://dev.tvcast.naver.com/v/2592268"><![CDATA[[직캠_Fancam] 141008 EXID(하니) 위아래 @ 파주 한마음 위문공연]]></subject>
+		<cover type="single">
+			<source><![CDATA[http://beta.tvcast1.phinf.naver.net/20150109_285/QNmNC_1420802591751FQjIQ_JPEG/34601E3410AE3C92E63_muploader_o_720P_1280_2048_192_logo.jpg]]></source>
+		</cover>
+		<advertise usable="null">
+			
+	        <referer><![CDATA[null]]></referer>
+		</advertise>
+		
+		<share count="0" usable="true" onlyInnerServices="false">
+			<service type="data"><![CDATA[http://dev.play.rmcnmv.naver.com/vod/share/getShareInfo?vid=60E53C1355FDEA6EC4CFA291A21DA430D5D2&inKey=null]]></service>
+		</share>		
+		<user id="muploader_o" name="muploader_o"/>
+		<relationVideo type="url"><![CDATA[http://dev-global-nvapis.line.me/linetv/rmcnmv/vod_relation_videoInfo.xml?videoId=60E53C1355FDEA6EC4CFA291A21DA430D5D2&cc=TH]]></relationVideo>
+		
+		<apiList>             
+			<api name="count"><![CDATA[http://dev-global-nvapis.line.me/etc/pc.nhn]]></api>             
+			<api name="playTime"><![CDATA[http://global-nvapis.line.me/pt.html]]></api>         
+		</apiList> 
+		
+		<display>
+			<component name="logo" visible="null"/>
+			<component name="subtitle" visible="false"/>
+			<component name="script" visible="false"/>
+			<component name="playbackRate" visible="false"/>
+			<component name="quality" visible="false"/>
+			<component name="setting" visible="false"/>
+			<component name="exapnd"  visible="true" value="clicked"/>
+			<component name="fullscreen" visible="false"/>
+			<component name="vodinfo" visible="null"/>
+		</display>		
+	</meta>
+	<videos type="video">
+		<video id="74D164CEBF1720456C0132DD10D97885ECBC" useP2P="false" duration="195.419" width="256" height="144" type="H264" size="3352455" >
+			<encodingOption id="144P_256_100_32" name="144P" profile="BASE"/>
+			<bitrate video="100.0" audio="32.0"/>
+			<p2pMetaUrl></p2pMetaUrl>
+			<source><![CDATA[http://dev.asia.vod.linetv.edgesuite.net/global/read/channel_2015_01_09_1/34601E3410AE3C92E63_muploader_o_144P_256_100_32.mp4?__gda__=1423472374_441e8b59b199009a8b7715faded71de9]]></source>
+		</video>
+		<video id="D934982962D159030DCA5CAA732847BA922E" useP2P="false" duration="195.349" width="480" height="270" type="H264" size="14268536" >
+			<encodingOption id="270P_480_500_64" name="270P" profile="BASE"/>
+			<bitrate video="500.0" audio="64.0"/>
+			<p2pMetaUrl></p2pMetaUrl>
+			<source><![CDATA[http://dev.asia.vod.linetv.edgesuite.net/global/read/channel_2015_01_09_1/34601E3410AE3C92E63_muploader_o_270P_480_500_64.mp4?__gda__=1423472374_cb433c0e007712dd73423d5528876fa4]]></source>
+		</video>
+		<video id="605904F03F3BDD21D9EDB9F35E9BB7398AFC" useP2P="false" duration="195.349" width="204" height="360" type="H264" size="18816632" >
+			<encodingOption id="360P_640_650_96" name="360P" profile="BASE"/>
+			<bitrate video="650.0" audio="96.0"/>
+			<p2pMetaUrl></p2pMetaUrl>
+			<source><![CDATA[http://dev.asia.vod.linetv.edgesuite.net/global/read/channel_2015_01_09_1/34601E3410AE3C92E63_muploader_o_360P_640_650_96.mp4?__gda__=1423472374_0617785d268486f51f7476432422c3ee]]></source>
+		</video>
+		<video id="11BBC135CF56281BA39D08AD12D62AC58EBC" useP2P="false" duration="195.349" width="854" height="480" type="H264" size="28959158" >
+			<encodingOption id="480P_854_1024_128" name="480P" profile="BASE"/>
+			<bitrate video="1024.0" audio="128.0"/>
+			<p2pMetaUrl></p2pMetaUrl>
+			<source><![CDATA[http://dev.asia.vod.linetv.edgesuite.net/global/read/channel_2015_01_09_1/34601E3410AE3C92E63_muploader_o_480P_854_1024_128.mp4?__gda__=1423472374_6cd4f105a98ab5e033da7b9aaad31f38]]></source>
+		</video>
+		<video id="60E53C1355FDEA6EC4CFA291A21DA430D5D2" useP2P="true" duration="195.349" width="1280" height="720" type="H264" size="55990765" isDefault="true">
+			<encodingOption id="720P_1280_2048_192" name="720P" profile="MAIN"/>
+			<bitrate video="2048.0" audio="192.0"/>
+			<p2pMetaUrl>http://175.158.17.238/p2p_meta/read/channel_2015_01_09_1/34601E3410AE3C92E63_muploader_o_720P_1280_2048_192.cassiod</p2pMetaUrl>
+			<source><![CDATA[http://dev.asia.vod.linetv.edgesuite.net/global/read/channel_2015_01_09_1/34601E3410AE3C92E63_muploader_o_720P_1280_2048_192.mp4?__gda__=1423472374_896a7dd85acde136c9507a5bf2ef136d]]></source>
+		</video>
+		<video id="E725A2B4E6ED00D21160B1B943DB31A9A2C7" useP2P="true" duration="195.349" width="1920" height="1080" type="H264" size="157875929" >
+			<encodingOption id="1080P_1920_6144_192" name="1080P" profile="HIGH"/>
+			<bitrate video="6144.0" audio="192.0"/>
+			<p2pMetaUrl>http://175.158.17.238/p2p_meta/read/channel_2015_01_09_1/34601E3410AE3C92E63_muploader_o_1080P_1920_6144_192.cassiod</p2pMetaUrl>
+			<source><![CDATA[http://dev.asia.vod.linetv.edgesuite.net/global/read/channel_2015_01_09_1/34601E3410AE3C92E63_muploader_o_1080P_1920_6144_192.mp4?__gda__=1423472374_6d0e96dc26067bd7a569b190858cc0e5]]></source>
+		</video>
+	</videos>
+	
+	<streams>
+		<stream type="HLS">
+			<key type="param" name="__gda__">1423472374_5786bd562df93b0078eee37437b087fe</key>
+			<source><![CDATA[http://dev.asia.vod.linetv.edgesuite.net/global/read/channel_2015_01_09_1/34601E3410AE3C92E63_muploader_o_720P_1280_2048_192_adoptive.m3u8]]></source>
+		</stream>
+	</streams>
+	
+	
+	
+	<thumbnails>
+		
+		<thumbnail time="20.0"><![CDATA[http://dev.uploader.rmcnmv.naver.com/channel/2015/01/09/551/34601E3410AE3C92E63_muploader_o_720P_1280_2048_192_s80_2.jpg]]></thumbnail>
+		
+		<thumbnail time="59.0"><![CDATA[http://dev.uploader.rmcnmv.naver.com/channel/2015/01/09/551/34601E3410AE3C92E63_muploader_o_720P_1280_2048_192_s80_4.jpg]]></thumbnail>
+		
+		<thumbnail time="98.0"><![CDATA[http://dev.uploader.rmcnmv.naver.com/channel/2015/01/09/551/34601E3410AE3C92E63_muploader_o_720P_1280_2048_192_s80_6.jpg]]></thumbnail>
+		
+		<thumbnail time="137.0"><![CDATA[http://dev.uploader.rmcnmv.naver.com/channel/2015/01/09/551/34601E3410AE3C92E63_muploader_o_720P_1280_2048_192_s80_8.jpg]]></thumbnail>
+		
+		<thumbnail time="176.0"><![CDATA[http://dev.uploader.rmcnmv.naver.com/channel/2015/01/09/551/34601E3410AE3C92E63_muploader_o_720P_1280_2048_192_s80_10.jpg]]></thumbnail>
+		
+	</thumbnails>
+	
+</videoSource>

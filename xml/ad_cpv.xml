@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<VAST xsi:noNamespaceSchemaLocation="vast.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3.0">
+   <Ad id="5930523">
+      <InLine>
+         <AdSystem>NAVER DA</AdSystem>
+         <AdTitle>MOVIE CPV AD</AdTitle>
+         <Impression><![CDATA[http://test.cpv.ad.naver.com/adview?test=Impression0]]></Impression>
+         <Impression><![CDATA[http://test.cpv.ad.naver.com/adview?test=Impression1]]></Impression>
+         <Impression><![CDATA[http://test.cpv.ad.naver.com/adview?test=Impression2]]></Impression>
+         <Creatives>
+            <Creative>
+               <Linear skipoffset="5">
+                  <Duration>00:00:30.000</Duration>
+                  <TrackingEvents>
+                     <Tracking event="start"><![CDATA[http://test.cpv.ad.naver.com/adview?test=start0]]></Tracking>
+                     <Tracking event="start"><![CDATA[http://test.cpv.ad.naver.com/adview?test=start1]]></Tracking>
+                     <Tracking event="start"><![CDATA[http://test.cpv.ad.naver.com/adview?test=start2]]></Tracking>
+                     <Tracking event="firstQuartile"><![CDATA[http://test.cpv.ad.naver.com/adview?test=firstQuartile0]]></Tracking>
+                     <Tracking event="midpoint"><![CDATA[http://test.cpv.ad.naver.com/adview?test=midpoint0]]></Tracking>
+                     <Tracking event="midpoint"><![CDATA[http://test.cpv.ad.naver.com/adview?test=midpoint1]]></Tracking>
+                     <Tracking event="midpoint"><![CDATA[http://test.cpv.ad.naver.com/adview?test=midpoint2]]></Tracking>
+                     <Tracking event="thirdQuartile"><![CDATA[http://test.cpv.ad.naver.com/adview?test=thirdQuartile0]]></Tracking>
+                     <Tracking event="complete"><![CDATA[http://test.cpv.ad.naver.com/adview?test=complete0]]></Tracking>
+                     <Tracking event="complete"><![CDATA[http://test.cpv.ad.naver.com/adview?test=complete1]]></Tracking>
+                     <Tracking event="complete"><![CDATA[http://test.cpv.ad.naver.com/adview?test=complete2]]></Tracking>
+                     <Tracking event="skip"><![CDATA[http://test.cpv.ad.naver.com/adview?test=skip0]]></Tracking>
+                     <Tracking event="progress" offset="00:00:05"><![CDATA[http://test.cpv.ad.naver.com/adview?test=progress0_05sec]]></Tracking>
+                     <Tracking event="progress" offset="00:00:07"><![CDATA[http://test.cpv.ad.naver.com/adview?test=progress1_07sec]]></Tracking>
+                     <Tracking event="progress" offset="00:00:09"><![CDATA[http://test.cpv.ad.naver.com/adview?test=progress2_09sec]]></Tracking>
+                     <Tracking event="progress" offset="00:00:11"><![CDATA[http://test.cpv.ad.naver.com/adview?test=progress3_11sec]]></Tracking>
+                     <Tracking event="progress" offset="00:00:13"><![CDATA[http://test.cpv.ad.naver.com/adview?test=progress4_13sec]]></Tracking>
+                  </TrackingEvents>
+                  <VideoClicks>
+                     <ClickThrough><![CDATA[http://test.cpv.ad.naver.com/adview?test=ClickThrough]]></ClickThrough>
+                     <ClickTracking id="32123"><![CDATA[http://test.cpv.ad.naver.com/adview?test=ClickTracking0]]></ClickTracking>
+                     <ClickTracking id="32123"><![CDATA[http://test.cpv.ad.naver.com/adview?test=ClickTracking1]]></ClickTracking>
+                     <ClickTracking id="32123"><![CDATA[http://test.cpv.ad.naver.com/adview?test=ClickTracking2]]></ClickTracking>
+                     <ClickTracking id="32123"><![CDATA[http://test.cpv.ad.naver.com/adview?test=ClickTracking3]]></ClickTracking>
+                  </VideoClicks>
+                  <MediaFiles>
+                  <!-- 
+                    -->
+                     <MediaFile id="2387359" delivery="progressive" type="video/mp4" width="854" height="144"><![CDATA[http://damovie-dn.line-apps.com/ad3/1078/1078663/20141112055543-BlppX3uP(1).mp4]]></MediaFile>
+                     <MediaFile id="2387361" delivery="progressive" type="video/mp4" width="854" height="480"><![CDATA[http://damovie-dn.line-apps.com/ad3/1078/1078663/20141112055607-8LQfu7u6(1).mp4]]></MediaFile>
+                     <MediaFile id="2387360" delivery="progressive" type="video/mp4" width="854" height="270"><![CDATA[http://damovie-dn.line-apps.com/ad3/1078/1078663/20141112055554-WPffIfdK(1).mp4]]></MediaFile>
+                     <MediaFile id="2387362" delivery="progressive" type="video/mp4" width="1280" height="720"><![CDATA[http://damovie-dn.line-apps.com/ad3/1078/1078663/20141112055653-oxJLoqAK(1).mp4]]></MediaFile>
+                  </MediaFiles>
+               </Linear>
+            </Creative>
+         </Creatives>
+      </InLine>
+   </Ad>
+</VAST> 

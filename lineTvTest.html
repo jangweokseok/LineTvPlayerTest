@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en_US">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta property="linetv:video:id" content="D732FB8193BB39AF806A2071ADA53BE244FB">
+    <link rel="stylesheet" type="text/css" href="./linetv_resource/linetv_20150123153159.css">
+    <style type="text/css">
+        .mytable { border-collapse:collapse; }
+        .mytable th, .mytable td { border:1px solid #cccccc; vertical-align: top; padding: 5px 5px 5px 5px;}
+    </style>
+    <script type="text/javascript" src="./linetv_resource/jindo.desktop.2_10_0.20140930.min.js"></script>
+    <!--<script type="text/javascript" src="./linetv_resource/jindo.js"></script>-->
+    <link type="text/css" rel="stylesheet" href="chrome-extension://eobejphpabbjeehffmbiecckpkggpbai/style.css">
+    <script type="text/javascript" charset="utf-8" src="chrome-extension://eobejphpabbjeehffmbiecckpkggpbai/js/content-script/page_context.js"></script>
+</head>
+
+<body class="en_US hide_aside" naver_screen_capture_injected="true">
+<div id="wrap" class="end_wrap">
+    <div id="header">
+        <span class="header_bg"></span>
+        <div class="gnb" id="tooltip">
+            <table Height="60" border="0" >
+                <tr>
+                    <td Align="center" rowspan="2"><h1 class="logo" style="margin-left:0px; width: 150px; border: 0px; "><a href="http://tv.line.me/" onclick="clickcr(this, &#39;gnb.linetv&#39;, &#39;&#39;, &#39;&#39;, event);" class="linetv"></a></h1></td>
+                    <td Align="center" style="font-size:11pt;solid #cccccc;"><strong>VIDEO ID</strong></td>
+                    <td><input id="video_id" type="text" name="video_id" style="margin-left:10px; font-size:11pt; width: 350px; border: 0px solid #cccccc;" value=""></td>
+                </tr>
+                <tr>
+                    <td Align="center"><span id="video_keyBtn" style="font-size:11pt;solid #cccccc;cursor: pointer; text-decoration: underline" title="호스트설정으로 createKey가 동작하지 않을때만 외부에서 생성한 key를 입력하세요."><strong>VIDEO Key</strong></span></td>
+                    <!--<td><input disabled  id="video_key" type="text" name="video_key" style="margin-left:11px;  font-size:9pt; width: 800px; border: 0px solid #cccccc;" value=""></td>-->
+                    <td><input id="video_key" type="text" name="video_key" style="margin-left:11px;  font-size:9pt; width: 800px; border: 0px solid #cccccc;" value=""></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="container">
+        <div class="container_area">
+            <div id="clip_end" class="clip_end">
+                <div class="player">
+                    <div id="vod" class="vod">
+                        <div id="player" style="width:100%; height:100%"></div>
+                    </div>
+                </div>
+                <div id="videoList" class="episode">
+                </div>
+            </div>
+            <div id="ControlMenu"></div>
+        </div>
+
+    </div>
+</div>
+</div>
+</body>
+</html>
+
+<script type="text/javascript" src="./linetv_resource/rmcplayer_g_loader.0.0.2.js"></script>
+<script type="text/javascript">
+
+    var logParam = ["sid", "cc", "pv", "cc", "os", "stp", "ec", "du", "it", "stp", "u", "ctype", "prtc", "ct", "adli", "ql"];
+
+    function debugLogViewer(log)
+    {
+        var htmlText = "";
+        var obj = jindo.$Json(log).$value()[0];
+
+        for( var i=0; i < logParam.length; i++)
+        {
+            var strParam = logParam[i];
+            var paramInfo = obj[strParam];
+
+            if (paramInfo)
+            {
+                if (strParam == "adli" || strParam == "ql") {
+                    for (var j = 0; j < paramInfo.length; j++) {
+                        var gql = paramInfo[j];
+
+                        if (strParam == "ql") {
+                            htmlText += "<br>"
+                            htmlText += "응답시간(" + (gql.qit / 1000).toFixed(1) + "초), ";
+                            htmlText += "버퍼횟수(" + gql.bc + "), ";
+                            htmlText += "누적버퍼(" + (gql.bt / 1000).toFixed(1) + "초), ";
+                            htmlText += "시청시간(" + (gql.wt) / 1000 + "초), ";
+                            htmlText += "화질(" + gql.q + "), ";
+                            htmlText += "시킹지점(" + gql.sp + ")";
+
+                        } else if (strParam == "adli") {
+                            htmlText += "<br>광고 전/후(" + gql.adt + "), 스킵(" + gql.ads + "), 이탈(" + gql.adl + ")";
+                        }
+                    }
+                } else {
+                    htmlText += strParam + "(" + paramInfo + "), ";
+                }
+            }
+        }
+        document.getElementById("logViewer").innerHTML = htmlText;
+    }
+
+    function debugVideoState(state){
+        document.getElementById('playStateInfo').value = state;
+    }
+
+    function debugVideoPlayTime(time){
+        document.getElementById('playTimeInfo').value = time.toFixed(2);
+    }
+
+    function setDefaultResolution(resolution) {
+
+        if (cookie.get(COOKIE_NAME_RESOLUTION) != null) {
+            cookie.remove(COOKIE_NAME_RESOLUTION);
+        }
+
+        cookie.set(COOKIE_NAME_RESOLUTION, resolution, 1);
+    }
+
+    function reloadPage() {
+        document.location.reload();
+    }
+
+    function onFlashEvent(event) {
+    }
+
+    function expandPlayer(isExpand) {
+
+        if (isExpand === 'true' || isExpand == true) {
+            cookie.set(COOKIE_NAME_EXPAND, "true", 1);
+            jindo.$Element('clip_end').addClass('cinema');
+        } else {
+            if (cookie.get(COOKIE_NAME_EXPAND) !== null) {
+                cookie.remove(COOKIE_NAME_EXPAND);
+            }
+            jindo.$Element('clip_end').removeClass('cinema');
+        }
+    }
+
+    function playRelationVideo(clipNo) {
+        location.href = 'http://tv.line.me/v/' + clipNo;
+    }
+
+    function clickAdvertisement(clickPath) {
+        window.open(clickPath, '_blank');
+    }
+
+    function getParameter(param) {
+        var returnValue;
+        var url = location.href;
+        var parameters = (url.slice(url.indexOf('?') + 1, url.length)).split('&');
+        for (var i = 0; i < parameters.length; i++) {
+            var varName = parameters[i].split('=')[0];
+            if (varName.toUpperCase() == param.toUpperCase()) {
+                returnValue = parameters[i].split('=')[1];
+                return decodeURIComponent(returnValue);
+            }
+        }
+    }
+
+    function initLayout() {
+        var expandCookie = ($Cookie().get('LTV_Expand') === 'true');
+        if (expandCookie) {
+            $Element('clip_end').addClass('cinema');
+        }
+        $Element('wrap').addClass('end_wrap');
+    }
+
+
+    function getVideoListInnerHTMLText() {
+
+        var rmveEle = document.createElement("div");
+
+        var htmlText = "";
+        var kindName = "";
+        htmlText += '<table class="mytable" style="font-size:8pt; height:100px; ">';
+        htmlText += '<tr>';
+        htmlText +=     '<td> - 일부 영상을 재생하려면 호스트 설정이 필요합니다.<br>(10.98.133.145 serviceapi.rmcnmv.naver.com)<br><br> - Shift + Ctrl + Alt + HOME키를 누르면 로그창이 보입니다.';
+        htmlText +=     '<br><br><br><br><br></td>';
+        htmlText += '</tr>';
+        htmlText += '<tr>';
+        htmlText +=     '<td width="200">';
+
+        for(var i=0; i<VIDEO_LIST.length; i++){
+
+            if (VIDEO_LIST[i].kind != kindName)
+            {
+                if (kindName != "")
+                    htmlText +=     '<br><br>';
+
+                kindName = VIDEO_LIST[i].kind;
+                htmlText +=     '<strong>'+kindName+'</strong><br>';
+            }
+
+            htmlText += '<label><input onchange="onChangeVID(this);" type="radio" name="video_id_list" value="' + i + '" >' + VIDEO_LIST[i].title + '</label><br>';
+        }
+
+        htmlText +=     '</td>';
+        htmlText += '</tr>';
+        rmveEle.innerHTML = htmlText;
+        return rmveEle
+
+    }
+
+    function getPlayerInnerHTMLText() {
+        var rmveEle = document.createElement("div");
+        rmveEle.className = "aaa";
+
+        var htmlText = "";
+        htmlText += '<table class="mytable" style="font-size:10pt; height:100px; ">';
+
+        //--------------------------------------------------------------------------------------------------------
+        htmlText += '<tr style="margin-top:10px;" height="45px">';
+        htmlText +=     '<td width="100" style="margin-left:11px;  font-size:10pt; border: 1px solid #ff0000;"><strong>품질 로그</strong><br>';
+        htmlText +=     '<td width="100" colspan="10" id="logViewer" style="margin-left:11px;  font-size:8pt; border: 1px solid #ff0000; line-height:1.5em;">본 영상 재생될때부터 표시가 됩니다.<br>';
+        htmlText += '</tr>'
+
+
+                htmlText += '<tr style="margin-top:10px;">';
+        htmlText +=     '<td width="100"><strong title="화면상의 오류코드에 대한 국가별 언어표시 입니다. 자막의 언어표시와는 무관합니다.">UI 언어</strong><br>';
+        htmlText +=         '<label><input onchange="onChangeInfo(this)" type="radio" name="pLang" value="KO_KR"> 한국</label><br>';
+        htmlText +=         '<label><input onchange="onChangeInfo(this)" type="radio" name="pLang" value="EN_US"> 영어</label><br>';
+        htmlText +=         '<label><input onchange="onChangeInfo(this)" type="radio" name="pLang" value="TH_TH"> 태국</label><br>';
+        htmlText +=         '<label><input onchange="onChangeInfo(this)" type="radio" name="pLang" value="ZH_TW"> 대만</label><br>';
+        htmlText +=     '</td>';
+
+        //--------------------------------------------------------------------------------------------------------
+
+        htmlText +=     '<td width="100"><strong title="">국가코드</strong><br>';
+        htmlText +=         '<label><input onchange="onChangeInfo(this)" type="radio" name="countryCode" value=""> 없음</label><br>';
+        htmlText +=         '<label><input onchange="onChangeInfo(this)" type="radio" name="countryCode" value="KO"> 한국(ko)</label><br>';
+        htmlText +=         '<label><input onchange="onChangeInfo(this)" type="radio" name="countryCode" value="EN"> 영어(en)</label><br>';
+        htmlText +=         '<label><input onchange="onChangeInfo(this)" type="radio" name="countryCode" value="TH"> 태국(th)</label><br>';
+        htmlText +=         '<label><input onchange="onChangeInfo(this)" type="radio" name="countryCode" value="TW"> 대만(tw)</label><br>';
+        htmlText +=     '</td>';
+
+        //--------------------------------------------------------------------------------------------------------
+
+        htmlText +=     '<td width="130"><strong title="자막을 지원하는 영상에 대해서 반영됩니다.">강제로 자막설정</strong><br>';
+        htmlText +=         '<label><input onchange="onChangeInfo(this)" type="checkbox" name="captionList0" value=""> english</label><br>';
+        htmlText +=         '<label><input onchange="onChangeInfo(this)" type="checkbox" name="captionList1" value=""> ไทย</label><br>';
+        htmlText +=         '<label><input onchange="onChangeInfo(this)" type="checkbox" name="captionList2" value=""> 中文</label><br>';
+        htmlText +=         '<label><input onchange="onChangeInfo(this)" type="checkbox" name="captionList3" value=""> 한국어</label><br>';
+        htmlText +=     '</td>';
+
+        //--------------------------------------------------------------------------------------------------------
+
+        htmlText +=     '<td width="120"><strong>광고</strong><br>';
+        htmlText +=         '<label><input onchange="onChangeInfo(this)" name="ad_before" type="checkbox" value="true">전</label>&nbsp;&nbsp;';
+        htmlText +=         '<label><input onchange="onChangeInfo(this)" name="ad_after" type="checkbox" value="true">후</label></input><br>';
+        htmlText +=         '<br><strong>광고(다시보기)</strong><br>';
+        htmlText +=         '<label><input onchange="onChangeInfo(this)" name="ad_before_replay" type="checkbox" value="true">전</label>&nbsp;&nbsp;';
+        htmlText +=         '<label><input onchange="onChangeInfo(this)" name="ad_after_replay" type="checkbox" value="true">후</label><br>';
+        htmlText +=         '<br><strong title="문자열 끝에 ?가 있어야 합니다. 예를들어 aaa.xml이라면 aaa.xml?라고 입력해야 합니다.">광고 정보 URL</strong><br>';
+        htmlText +=         '<input onchange="onChangeInfo(this)" name="ad_url" type="text" style="margin-left:1px; font-size:7pt; width: 100px; border: 1px solid #cccccc;" value="" title="문자열 끝에 ?가 있어야 합니다. 예를들어 aaa.xml이라면 aaa.xml?라고 입력해야 합니다."><br>';
+        htmlText +=     '</td>';
+        //--------------------------------------------------------------------------------------------------------
+
+        htmlText +=     '<td width="120"><strong>자동 재생</strong><br>';
+        htmlText +=         '<label><input onchange="onChangeInfo(this)" name="auto_play" type="checkbox" value="true"> 자동 재생</label><br>';
+        htmlText +=         '<br><strong>프로토콜</strong><br>';
+        htmlText +=         '<label><input onchange="onChangeInfo(this)" name="protocol" type="checkbox" value="false"> PD방식만 재생</label>&nbsp;&nbsp;';
+        htmlText +=     '</td>';
+        //--------------------------------------------------------------------------------------------------------
+
+        htmlText +=     '<td width="120"><strong title="네트웍상황이 좋은 국내에서는 테스트가 필요없습니다.">버퍼(초)</strong><br>';
+        htmlText +=         '&nbsp;&nbsp;초기<input onchange="onChangeInfo(this)" name="initBufferTime" type="text" value="" SIZE="1" MAXLENGTH="3" style="text-align: right; padding-right:1px;"><br>';
+        htmlText +=         '&nbsp;&nbsp;재생<input onchange="onChangeInfo(this)" name="playingBufferTime" type="text" value="" SIZE="1" MAXLENGTH="3" style="text-align: right; padding-right:1px;"><br>';
+        htmlText +=         '&nbsp;&nbsp;증가<input onchange="onChangeInfo(this)" name="incBufferTime" type="text" value="" SIZE="1" MAXLENGTH="3" style="text-align: right; padding-right:1px;"><br>';
+        htmlText +=         '&nbsp;&nbsp;최대<input onchange="onChangeInfo(this)" name="maxBufferTime" type="text" value="" SIZE="1" MAXLENGTH="3" style="text-align: right; padding-right:1px;"><br>';
+        htmlText +=     '</td>';
+        //--------------------------------------------------------------------------------------------------------
+
+        htmlText +=     '<td width="160" rowspan="2" id="logViewer" ><strong >External Interface Key</strong><br><br>';
+        htmlText +=        'state : <input id="playStateInfo" type="text" value="-" title="서버연결:connect&#10;재생:play&#10;일시정지:pause&#10;영상종료:complete&#10;후광고종료:ad_complete" disabled style="font-size:10pt;text-align: center; padding-right:1px;border: 1px solid #cccccc;width:65%;"><br><br>';
+        htmlText +=        'playTime : <input id="playTimeInfo" type="text" value="0.00" title="player에서 실시간 현 재생시간 표시" disabled style="font-size:10pt;text-align: right; padding-right:1px;border: 1px solid #cccccc;width:40%;"> sec<br><br>';
+        htmlText +=        '<input onclick="controlBtn(this);" type="button" value="time" title="현재의 재생시간과 총 재생시간" style="font-size:9pt;width:40px;height:20px;border: 1px solid #cccccc;">&nbsp;';
+        htmlText +=        '<input id="timeInfo" type="text" value="-" disabled style="font-size:10pt;text-align: center; padding-right:1px;border: 1px solid #cccccc;width:65%;"><br><br>';
+
+        htmlText +=        '<input onclick="controlBtn(this);" type="button" value="play" style="font-size:9pt;width:60px;height:20px;border: 1px solid #cccccc;">&nbsp;';
+        htmlText +=        '<input onclick="controlBtn(this);" type="button" value="pause" style="font-size:9pt;width:60px;height:20px;border: 1px solid #cccccc;"><br>';
+        htmlText +=        '<input onclick="controlBtn(this);" type="button" value="close" style="font-size:9pt;width:60px;height:20px;border: 1px solid #cccccc;"><br><br>';
+        htmlText +=        '<input onclick="controlBtn(this);" type="button" value="timeSeek" style="font-size:9pt;width:70px;height:20px;border: 1px solid #cccccc;">&nbsp;&nbsp;';
+        htmlText +=         '<input id="timeSeekNum" type="text" value="" SIZE="1" MAXLENGTH="5" style="font-size:10pt;text-align: right; padding-right:1px;border: 1px solid #cccccc;width:40px;"> sec<br>';
+
+        htmlText +=        '<input onclick="controlBtn(this);" type="button" value="ratioSeek" style="font-size:9pt;width:70px;height:20px;border: 1px solid #cccccc;">&nbsp;&nbsp;';
+        htmlText +=         '<input id="ratioSeekNum" type="text" value="" SIZE="1" MAXLENGTH="3" style="font-size:10pt;text-align: right; padding-right:1px;border: 1px solid #cccccc;width:40px;"> %<br><br>';
+
+        htmlText +=        '<input onclick="controlBtn(this);" type="button" value="toggleMute" style="font-size:9pt;width:100px;height:20px;border: 1px solid #cccccc;"><br>';
+        htmlText +=        '<input onclick="controlBtn(this);" type="button" value="togglePause" style="font-size:9pt;width:100px;height:20px;border: 1px solid #cccccc;"><br>';
+//        htmlText +=        '<input onclick="controlBtn(this);" type="button" value="fullscreen" style="font-size:9pt;width:100px;height:20px;border: 1px solid #cccccc;"><br>';
+        htmlText +=     '</td>';
+
+        //--------------------------------------------------------------------------------------------------------
+
+        htmlText +=     '<td width="100" rowspan="2" id="logViewer"><strong title="" >비고</strong><br>';
+        htmlText +=     '</td>';
+        //--------------------------------------------------------------------------------------------------------
+
+        htmlText +=     '<td rowspan="2">';
+        htmlText +=        '<input onclick="reflashBtn();" type="button" value="시작" style="width:100px;height:100px;"></td></tr>';
+        htmlText += '</tr>';
+        htmlText += '<tr>';
+        htmlText +=     '<td style="margin-left:1px; font-size:8pt;"> 오류메시지 언어용으로 사용됩니다.<br><br>오류메시지가 보이지 않는 이상 테스트하지 않습니다.</td>';
+        htmlText +=     '<td style="margin-left:1px; font-size:8pt;" colspan="2">자막을 지원하는 영상으로 재생해야 자막 테스트가 가능합니다. <br><br>드림하이 EP08 자막이며 각 언어별 자막이 잘 표시되는지만 확인합니다.<br><br> 자막 우선순위는 아래와 같습니다. <br><br>1. 사용자가 마지막에 선택한 값(<a href="http://www.macromedia.com/support/documentation/kr/flashplayer/help/settings_manager07.html" target="_blank" style="color:#ff0000;">제거하러 가기</a> ) <br>2. 국가코드에 맞는 자막<br>3. 자막 목록중 첫번째</td>';
+        htmlText +=     '<td style="margin-left:1px; font-size:8pt;"> 별도의 광고 문서가 있으면 url을 입력합니다.<br>입력할때 url끝에 "?"를 넣어주어야 합니다.</td>';
+        htmlText +=     '<td style="margin-left:1px; font-size:8pt;"> 프로토콜 - 동일한 영상에 대해서 PD방식과 HLS방식을 서로 비교 테스트할때 사용합니다.</td>';
+        htmlText +=     '<td style="margin-left:1px; font-size:8pt;"> 네트워크망이 좋은 국내에서는 테스트하지 않습니다.</td>';
+        htmlText += '</tr>';
+        htmlText += '</table>';
+
+        rmveEle.innerHTML = htmlText;
+        return rmveEle
+    };
+
+    function controlBtn(obj){
+
+        var flash = rmc.player.FlashObject.find(properties.id);
+
+        switch(obj.value)
+        {
+            case "play": flash.playVideo(); break;
+            case "pause": flash.pauseVideo(); break;
+            case "close": flash.closeVideo(); break;
+            case "timeSeek": flash.timeSeek(document.getElementById('timeSeekNum').value); break;
+            case "ratioSeek": flash.ratioSeek(document.getElementById('ratioSeekNum').value); break;
+            case "toggleMute": flash.toggleMute(); break;
+            case "togglePause": flash.togglePause(); break;
+            case "fullscreen":
+                    flash.fullscreen();
+                break;
+            case "time":
+                    var arrTime = flash.getVideoTimes();
+                    document.getElementById('timeInfo').value = arrTime[0].toFixed(1) +" / "+arrTime[1].toFixed(1);
+                break;
+        }
+    }
+
+    function onChangeInfo(obj){
+        switch(obj.name)
+        {
+            case "auto_play":  $auto_play = obj.checked; break;
+            case "ad_before": $ad_before = obj.checked; break;
+            case "ad_after": $ad_after = obj.checked; break;
+            case "ad_before_replay": $ad_before_replay = obj.checked; break;
+            case "ad_after_replay": $ad_after_replay = obj.checked; break;
+            case "pLang": $pLang = obj.value; break;
+            case "countryCode": $countryCode = obj.value; break;
+            case "initBufferTime": $initBufferTime = obj.value; break;
+            case "playingBufferTime": $playingBufferTime = obj.value; break;
+            case "incBufferTime": $incBufferTime = obj.value; break;
+            case "maxBufferTime": $maxBufferTime = obj.value; break;
+            case "ad_url": $ad_url = obj.value; break;
+            case "protocol": $protocol = obj.checked; break;
+            case "captionList0": $captionList0 = obj.checked; break;
+            case "captionList1": $captionList1 = obj.checked; break;
+            case "captionList2": $captionList2 = obj.checked; break;
+            case "captionList3": $captionList3 = obj.checked; break;
+
+        }
+    }
+
+    function reflashBtn(){
+
+        var param = "?pLang=" + $pLang+
+                "&region=" + $region+
+                "&countryCode=" + $countryCode+
+                "&ad_before=" + $ad_before+
+                "&ad_after=" + $ad_after+
+                "&ad_before_replay=" + $ad_before_replay+
+                "&ad_after_replay=" + $ad_after_replay+
+                "&auto_play=" + $auto_play+
+                "&video_id=" + document.getElementsByName('video_id')[0].value+
+                "&video_key=" + document.getElementsByName('video_key')[0].value +
+                "&initBufferTime=" + $initBufferTime+
+                "&playingBufferTime=" + $playingBufferTime+
+                "&incBufferTime=" + $incBufferTime+
+                "&maxBufferTime=" + $maxBufferTime+
+                "&protocol=" + $protocol+
+                "&captionList0=" + $captionList0+
+                "&captionList1=" + $captionList1+
+                "&captionList2=" + $captionList2+
+                "&captionList3=" + $captionList3+
+                "&ad_url=" + escape($ad_url);
+
+        location.href = location.href.split("?")[0] + param;
+
+    }
+
+    function alertContents() {
+        if (httpRequest.readyState === 4) {
+            if (httpRequest.status === 200) {
+                var xmlDoc = httpRequest.responseXML;
+                var code = xmlDoc.getElementsByTagName('Code')[0];
+                var key = xmlDoc.getElementsByTagName('Key')[0];
+
+                if (code.childNodes[0].nodeValue == 0)
+                {
+                    //alert(key.childNodes[0].nodeValue);
+                    document.getElementById('video_key').value = key.childNodes[0].nodeValue;
+                    $video_key = key.childNodes[0].nodeValue;
+                }else
+                {
+                    var msg = xmlDoc.getElementsByTagName('ErrorMessage')[0];
+                    document.getElementById('video_key').value = msg.childNodes[0].nodeValue;
+                }
+
+            } else {
+                alert('There was a problem with the request.');
+            }
+        }
+    }
+
+    function onChangeVID(input){
+
+        var vo = VIDEO_LIST[input.value];
+
+        $region = vo.region;
+        $video_id = vo.id;
+        $video_key = vo.key;
+
+        document.getElementById('video_id').value = $video_id;
+        document.getElementById('video_key').value = $video_key;
+
+        if (input.value != "") {
+            reflashBtn();
+        }else {
+            document.getElementById('video_key').value = "-";//"vidoe id를 입력하고 key를 클릭하세요";
+        }
+    }
+
+    function VideoVO(kind, title, id, key, region){
+
+        this.kind = kind;
+        this.title = title;
+        this.id = id;
+        this.key = key;
+        this.region = region;
+    }
+
+    const VIDEO_LIST = [new VideoVO("영상 (리얼서버-아웃키보유)", "2초 영상", "E2180B899C5773774FAF8BCD56F24A4E0B38", "V1212771475dc350af6d1e7e3a2ef2cdf8a66b65a76a7dfdd4d60e7e3a2ef2cdf8a66", "TH"),
+                        new VideoVO("영상 (리얼서버-아웃키보유)", "9초 영상", "29972611396302B62551D9DA3DC67EB9F2D6", "V121217c35845e9368f9d0ab91dc464490ff1b0594bc5e5d731940ab91dc464490ff1", "TH"),
+                        new VideoVO("영상 (리얼서버-아웃키보유)", "9초 영상", "F54C5D40B98D5031C2E7BADDA7DB0823DB51", "V12550732e67dcca38daa64038139b1da06d8230874dd818ecd6864038139b1da06d8", "TH"),
+                        new VideoVO("영상 (리얼서버-아웃키보유)", "5초 영상", "A74ECDB1C7E280A0EC36285572F2E8ADBC70", "V123b62d8e5535d24799f0ef2370fa465062ef9c97d31b34c83de0ef2370fa465062e", "TH"),
+                        new VideoVO("영상 (리얼서버-아웃키보유)", "6초 영상", "8D5E2DF515A76208340E6ADFD10800810E81", "V125cf892bfa9830f4b6696483db50ac7a8074063dab4f51abf8c96483db50ac7a807", "TH"),
+                        new VideoVO("영상 (리얼서버-아웃키보유)", "5시간 영상", "BB7D53DFE2D2E882DE8B0FC3B833223888E9", "V128614a5e021d8609f832e9e13a379dd27c954f417528a9da5162e9e13a379dd27c9", "TH"),
+                        new VideoVO("영상 (리얼서버-아웃키보유)", "3시간 15분 영상", "C097760A4D130B1753D2D9DA3DC67EB9F2D6", "V1299d47c71a2009538806b9438f8028aaf5e6102da0780576b586b9438f8028aaf5e", "TH"),
+                        new VideoVO("영상 (리얼서버-아웃키보유)", "1시간 40분 영상", "3F781DC1B1BBB6C7633F20B7933A170CBA14", "V122a25033ff67d1572a912299b7d221a6b6acf85280a2995bd9b12299b7d221a6b6a", "TH"),
+                        new VideoVO("영상 (리얼서버-아웃키보유)", "1시간 14분 영상", "8DC721ADA0DD0EA486752780974B2E7A6B6B", "V123f8221f288b1ac63bb118f8ef8e9884785d9296251a39f2619118f8ef8e9884785", "TH"),
+                        new VideoVO("영상 (리얼서버-아웃키보유)", "2시간 44분 영상", "DA4443CF92B9A44392A6ED51FD7A4A9AC4E9", "V1263ebd22d2b4871b36752e4d6bb895ec63424ccc18612577fff52e4d6bb895ec634", "TH"),
+                        new VideoVO("영상 (개발서버-호스트설정 필요)", "개발ID 직접 입력", "개발용 video ID를 입력하세요.", "", "KR"),
+                        new VideoVO("영상 (개발서버-호스트설정 필요)", "케이팝스타-릴리", "2E160DD135A9BEC1B44BC10964006B52B35C", "", "KR"),
+                        new VideoVO("영상 (개발서버-호스트설정 필요)", "EXID 위아래", "60E53C1355FDEA6EC4CFA291A21DA430D5D2", "", "KR"),
+                        new VideoVO("영상 (개발서버-호스트설정 필요)", "애니(자막있음)", "ADE295ED6C5D5C91ED5AC5D5DDB74ED9663A", "", "KR"),
+                        new VideoVO("영상 (리얼서버-호스트설정 필요)", "리얼ID 직접 입력", "리얼용 video ID를 입력하세요.", "", "TH"),
+                        new VideoVO("영상 (리얼서버-호스트설정 필요)", "AOA뮤비", "B44EF1C5762C6D1022A7285572F2E8ADBC70", "", "TH"),
+                        new VideoVO("영상 (리얼서버-호스트설정 필요)", "Music Bank EP745", "E551CB730F9D0E4FFE17B316B8DB48EAD56B", "", "TH"),
+                        new VideoVO("영상 (리얼서버-호스트설정 필요)", "Music Bank EP751", "10F1BD7CA5EE591C7925D43DC0665C57A1B9", "", "TH"),
+                        new VideoVO("영상 (리얼서버-호스트설정 필요)", "Dream High EP08(테스트 자막지원)", "FB89B847CBBF0347398F9D6A553FBF3DD2BF", "", "TH"),
+                        new VideoVO("영상 (리얼서버-호스트설정 필요)", "좌우사이즈이상한영상", "EE6007CAB65D155B2F0DA85F0A2F85AC73A5", "", "TH")];
+
+
+    const COOKIE_NAME_RESOLUTION = 'LTV_DefaultResolution';
+    const COOKIE_NAME_EXPAND = "LTV_Expand";
+    var cookie = new jindo.$Cookie();
+
+    var $captionList0 = getParameter('captionList0') || false;
+    var $captionList1 = getParameter('captionList1') || false;
+    var $captionList2 = getParameter('captionList2') || false;
+    var $captionList3 = getParameter('captionList3') || false;
+    var $protocol = getParameter('protocol') || false;
+    var $initBufferTime = getParameter('initBufferTime') || 3;
+    var $playingBufferTime = getParameter('playingBufferTime') || 5;
+    var $incBufferTime = getParameter('incBufferTime') || 2;
+    var $maxBufferTime = getParameter('maxBufferTime') || 15;
+    var $pLang = getParameter('pLang') || "KO_KR";
+    var $countryCode = getParameter('countryCode') || "";
+    var $region = getParameter('region') || "TH";
+    var $ad_before = getParameter('ad_before') || false;
+    var $ad_after = getParameter('ad_after') || false;
+    var $ad_before_replay = getParameter('ad_before_replay') || false;
+    var $ad_after_replay = getParameter('ad_after_replay') || false;
+    var $auto_play = getParameter('auto_play') || true;
+    var $video_id = getParameter('video_id') || "";
+    var $video_key;
+    if ($video_id == "")
+    {
+        $video_key = "";//"vidoe id를 입력하고 key를 클릭하세요";
+    }else {
+        $video_key = getParameter('video_key');
+    }
+
+    if (getParameter('ad_url'))
+        var $ad_url = unescape(getParameter('ad_url'))
+    else
+        var $ad_url = "http://ad-cpv-sg.line.me/adshow?unit=1187C&cp=594&st=643&chl=fncenter&cat=ARTIS&cl=225055&svc=linetv&cc=N&ctry=TH";
+
+    rmc.player.env.flash.region.ASIA.module = "swf/LineTvVODPlayer.swf";
+    rmc.player.env.flash.region.LOCAL.module = "swf/LineTvVODPlayer.swf";
+    rmc.player.env.flash.region.GLOBAL.module = "swf/LineTvVODPlayer.swf";
+
+    if ($region == "KR")
+    {
+        rmc.player.env.flash.region.ASIA.api = "http://dev-global-nvapis.line.me/linetv/rmcnmv/vod_play_videoInfo.json";
+        rmc.player.env.flash.region.ASIA.module = "swf/LineTvVODPlayer.swf";
+    }
+
+    var properties = rmc.player.getDefaultProperties();
+
+    if ($video_key == "")
+    {
+        properties.debugVID = $video_id;
+        properties.debugIsRealID = $region == "TH";
+    }
+
+    properties.debugIsProtocolPD = $protocol;
+    properties.debugCaptionList = $captionList0+"/"+$captionList1+"/"+$captionList2+"/"+$captionList3;
+    properties.initBufferTime = $initBufferTime;
+    properties.countryCode = $countryCode;
+    properties.playingBufferTime = $playingBufferTime;
+    properties.incBufferTime = $incBufferTime;
+    properties.maxBufferTime = $maxBufferTime;
+    properties.playerWidth = $Element('vod').width();
+    properties.playerHeight = $Element('vod').height();
+    properties.video = {
+        id: $video_id,
+        key: $video_key
+    };
+    properties.autoPlay = $auto_play;
+    properties.showRelatieMovie = true;
+    properties.callback = onFlashEvent;
+    properties.poster = {
+        url: "",
+        resizable: true
+    };
+    properties.nsc = 'test.linetv.all';
+    properties.defaultResolution = cookie.get(COOKIE_NAME_RESOLUTION);
+    if (properties.defaultResolution === "" || properties.defaultResolution ===  null ) {
+        properties.defaultResolution = 480;
+    }
+
+    properties.ad = {
+        advertiseInfo: '[{"type":"pre","exposure":'+$ad_before+',"replayExposure":'+$ad_before_replay+'},{"type":"post","exposure":'+$ad_after+',"replayExposure":'+$ad_after_replay+'}]',
+        advertiseUrl: $ad_url
+    };
+
+    var expandCookie = ($Cookie().get('LTV_Expand') === 'true');
+    properties.controls = {
+        visible: {
+            subtitles: true,
+            expand: true
+        }, clicked: {
+            subtitles: true,
+            expand: expandCookie
+        }
+    };
+    properties.customSettings = {
+        useCustom: true,
+        flash: {
+            wmode: "opaque"
+        }
+    };
+
+    var rmcplayer = rmc.player.create(document.getElementById("player"), "TH", $pLang, properties);
+
+
+    initLayout();
+
+    var controlMenu = document.getElementById('ControlMenu');
+    controlMenu.appendChild(getPlayerInnerHTMLText());
+
+    var vlist = document.getElementById('videoList');
+    vlist.appendChild(getVideoListInnerHTMLText());
+
+    var i;
+
+    var video_id_list = document.getElementsByName('video_id_list');
+    var isCheckedSucess = false;
+    for(i=0; i< video_id_list.length; i++) {
+        if ($video_id == VIDEO_LIST[i].id && VIDEO_LIST[i].region == $region) {
+            video_id_list[i].checked = true;
+            isCheckedSucess = true;
+            break;
+        }
+    }
+
+    if (!isCheckedSucess)
+    {
+        if ($region == "KR")
+            var search_title = "개발ID 직접 입력";
+        else
+            var search_title = "리얼ID 직접 입력";
+
+        for(i=0; i< video_id_list.length; i++) {
+            if (search_title == VIDEO_LIST[i].title) {
+                video_id_list[i].checked = true;
+                break;
+            }
+        }
+    }
+
+    var pLang = document.getElementsByName('pLang');
+
+    for(i=0; i< pLang.length; i++) {
+        if ($pLang == pLang[i].value) {
+            pLang[i].checked = true;
+            break;
+        }
+    }
+
+    var countryCode = document.getElementsByName('countryCode');
+
+    for(i=0; i< countryCode.length; i++) {
+        if ($countryCode == countryCode[i].value) {
+            countryCode[i].checked = true;
+            break;
+        }
+    }
+
+    document.getElementsByName('video_id')[0].value = $video_id;
+    document.getElementsByName('video_key')[0].value = $video_key;
+    document.getElementsByName('initBufferTime')[0].value = $initBufferTime;
+    document.getElementsByName('playingBufferTime')[0].value = $playingBufferTime;
+    document.getElementsByName('incBufferTime')[0].value = $incBufferTime;
+    document.getElementsByName('maxBufferTime')[0].value = $maxBufferTime;
+    document.getElementsByName('ad_url')[0].value = $ad_url;
+
+    var auto_play = document.getElementsByName('auto_play');
+    var protocol = document.getElementsByName('protocol');
+    var ad_before = document.getElementsByName('ad_before');
+    var ad_after = document.getElementsByName('ad_after');
+    var ad_before_replay = document.getElementsByName('ad_before_replay');
+    var ad_after_replay = document.getElementsByName('ad_after_replay');
+
+    var captionList0 = document.getElementsByName('captionList0');
+    var captionList1 = document.getElementsByName('captionList1');
+    var captionList2 = document.getElementsByName('captionList2');
+    var captionList3 = document.getElementsByName('captionList3');
+
+    captionList0[0].checked = $captionList0 == 'true' ? true : false;
+    captionList1[0].checked = $captionList1 == 'true' ? true : false;
+    captionList2[0].checked = $captionList2 == 'true' ? true : false;
+    captionList3[0].checked = $captionList3 == 'true' ? true : false;
+
+    auto_play[0].checked = $auto_play == 'true' ? true : false;
+    protocol[0].checked = $protocol == 'true' ? true : false;
+    ad_before[0].checked = $ad_before == 'true' ? true : false;
+    ad_after[0].checked = $ad_after == 'true' ? true : false;
+    ad_before_replay[0].checked = $ad_before_replay == 'true' ? true : false;
+    ad_after_replay[0].checked = $ad_after_replay == 'true' ? true : false;
+
+    var httpRequest;
+    document.getElementById("video_keyBtn").onclick = function()
+    {
+        $video_id = document.getElementById('video_id').value;
+        makeRequest($video_id);
+    };
+
+
+
+</script>
