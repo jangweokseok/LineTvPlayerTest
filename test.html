@@ -1,8 +1,59 @@
 <!DOCTYPE html>
 <html lang="en_US">
 <head>
-	<script src="http://www.mobilefarms.com/script/mf.js"></script>
-	<script>mfarm_redirect("http://pdent2.mobilefarms.com")</script>
+	<script type="text/javascript" src="js/vendor/jquery-2.1.3.js"></script>
+	<script>
+
+		function controlBtn(value){
+
+
+			var url;
+			switch(value){
+				case "adInfo":
+					url = "http://ad-cpv-sg.line.me/adshow?unit=1187C&cp=594&st=643&chl=fncenter&cat=ARTIS&cl=225055&svc=linetv&cc=N&ctry=TH&vip=pre&plyr=LTV_PC";
+					break;
+				case "keyInfo":
+					url = "http://serviceapi.rmcnmv.naver.com/flash/createInKey.nhn?vid=60E53C1355FDEA6EC4CFA291A21DA430D5D2";
+					break;
+				case "playInfo":
+					url = "http://global-nvapis.line.me/linetv/rmcnmv/vod_play_videoInfo.json";
+					break;
+			}
+
+			$.ajax({
+				url:url,
+				success:onSuccess, error:onError
+			});
+		}
+
+		function onSuccess(data){
+			$("#info").attr("value", "[성공]"+data);
+		}
+
+		function onError(request, status, error){
+			$("#info").attr("value", "[실패]"+"code:"+request.status+" / "+"message:"+request.responseText+" / "+"error:"+error);
+		}
+	</script>
+
+
 </head>
-<body></body>
+<body>
+	<table>
+		<tr>
+			<td>
+				<input onclick="controlBtn(this.value);" type="button" value="adInfo">&nbsp;
+				<input onclick="controlBtn(this.value);" type="button" value="keyInfo">&nbsp;
+				<input onclick="controlBtn(this.value);" type="button" value="playInfo">&nbsp;
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<input id="info" type="text" value="" style="font-size:10pt;text-align: center; padding-right:1px;border: 1px solid;width:1000px;height:1000px;"/><br><br>
+			</td>
+		</tr>
+
+	</table>
+
+</body>
+
 

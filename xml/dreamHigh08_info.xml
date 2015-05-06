@@ -5,7 +5,7 @@
 
 
 <videoSource>
-	<meta masterVideoId="FB89B847CBBF0347398F9D6A553FBF3DD2BF" serviceId="2010" count="35186">
+	<meta masterVideoId="FB89B847CBBF0347398F9D6A553FBF3DD2BF" serviceId="2010" count="46133">
 		<subject><![CDATA[Dream High EP08]]></subject>
 		<cover type="single">
 			<source><![CDATA[http://tvcast1.phinf.naver.net/20150119_187/UI4pG_1421658878230VP7sU_JPEG/1421658878218.jpg]]></source>
@@ -22,62 +22,55 @@
 		
 	</meta>
 	<videos type="video">
-		<video id="72F634CE6503F6F904BACC44D0BC173A5431" useP2P="false" duration="4030.01" width="256" height="144" type="H264" >
-			<encodingOption id="144P_256_100_32" name="144P" profile="BASE"/>
+		<video id="72F634CE6503F6F904BACC44D0BC173A5431" useP2P="false" duration="0" width="256" height="144" type="H264" size="67843886" >
+			<encodingOption id="144P_256_100_32" name="144P" profile="BASE"  isEncodingComplete="false"/>
 			<bitrate video="100.0" audio="32.0"/>
 			<p2pMetaUrl></p2pMetaUrl>
-			<source><![CDATA[http://asia.vod.linetv.edgesuite.net/global/read/TVCAST_2014_12_02_2/36C21C3434A830088A3_muploader_n_144P_256_100_32.mp4?__gda__=1425553035_440360b52e8a0a17b5f5e9e84636769e]]></source>
+			<source><![CDATA[http://asia.vod.linetv.edgesuite.net/global/read/TVCAST_2014_12_02_2/36C21C3434A830088A3_muploader_n_144P_256_100_32.mp4?__gda__=1426660622_3d4fa141d6f385d9977e2e0fcfcd9b63]]></source>
 		</video>
-		<video id="31D05F292F3888DFFFC7539917A6A68D3809" useP2P="false" duration="4029.969" width="480" height="270" type="H264" >
-			<encodingOption id="270P_480_500_128" name="270P" profile="BASE"/>
+		<video id="31D05F292F3888DFFFC7539917A6A68D3809" useP2P="false" duration="0" width="480" height="270" type="H264" size="227276554" >
+			<encodingOption id="270P_480_500_128" name="270P" profile="BASE"  isEncodingComplete="false"/>
 			<bitrate video="350.0" audio="96.0"/>
 			<p2pMetaUrl></p2pMetaUrl>
-			<source><![CDATA[http://asia.vod.linetv.edgesuite.net/global/read/TVCAST_2014_12_02_4/36C21C3434A830088A3_muploader_n_270P_480_500_128.mp4?__gda__=1425553035_946e3d22d638e9999863960f0d32ac06]]></source>
+			<source><![CDATA[http://asia.vod.linetv.edgesuite.net/global/read/TVCAST_2014_12_02_4/36C21C3434A830088A3_muploader_n_270P_480_500_128.mp4?__gda__=1426660622_8a9ef62351b37eab8b2c3e1bfdd0ee22]]></source>
 		</video>
-		<video id="FB89B847CBBF0347398F9D6A553FBF3DD2BF" useP2P="false" duration="4029.969" width="854" height="480" type="H264" isDefault="true">
-			<encodingOption id="480P_854_1024_128" name="480P" profile="MAIN"/>
+		<video id="FB89B847CBBF0347398F9D6A553FBF3DD2BF" useP2P="false" duration="4029.969" width="854" height="480" type="H264" size="582743520" isDefault="true">
+			<encodingOption id="480P_854_1024_128" name="480P" profile="MAIN"  isEncodingComplete="true"/>
 			<bitrate video="1024.0" audio="128.0"/>
 			<p2pMetaUrl></p2pMetaUrl>
-			<source><![CDATA[http://asia.vod.linetv.edgesuite.net/global/read/TVCAST_2014_12_02_3/36C21C3434A830088A3_muploader_n_480P_854_1024_128.mp4?__gda__=1425553035_80c7b74c1dc6873d5dcf164d92d95893]]></source>
+			<source><![CDATA[http://asia.vod.linetv.edgesuite.net/global/read/TVCAST_2014_12_02_3/36C21C3434A830088A3_muploader_n_480P_854_1024_128.mp4?__gda__=1426660622_fb29bc930e782159b167389fc966ccee]]></source>
 		</video>
-		<video id="D2B293F35A8BCAF77D234942ABB4CE7E0336" useP2P="false" duration="4029.969" width="1280" height="720" type="H264" >
-			<encodingOption id="720P_1280_2048_192_B" name="720P" profile="MAIN"/>
+		<video id="D2B293F35A8BCAF77D234942ABB4CE7E0336" useP2P="false" duration="4029.969" width="1280" height="720" type="H264" size="1130367986" >
+			<encodingOption id="720P_1280_2048_192_B" name="720P" profile="MAIN"  isEncodingComplete="true"/>
 			<bitrate video="2048.0" audio="192.0"/>
 			<p2pMetaUrl></p2pMetaUrl>
-			<source><![CDATA[http://asia.vod.linetv.edgesuite.net/global/read/TVCAST_2014_12_02_2/36C21C3434A830088A3_muploader_n_720P_1280_2048_192_B.mp4?__gda__=1425553035_6187972e5eeed6e0ce0bca45a44ad99e]]></source>
+			<source><![CDATA[http://asia.vod.linetv.edgesuite.net/global/read/TVCAST_2014_12_02_2/36C21C3434A830088A3_muploader_n_720P_1280_2048_192_B.mp4?__gda__=1426660622_a9e852342b70dc8246704cd4d151b7a7]]></source>
 		</video>
-		<video id="466E4D411471A600454FBD81F15D9210A94F" useP2P="false" duration="4029.969" width="1920" height="1080" type="H264" >
-			<encodingOption id="1080P_1920_5120_192" name="1080P" profile="HIGH"/>
+		<video id="466E4D411471A600454FBD81F15D9210A94F" useP2P="false" duration="4029.969" width="1920" height="1080" type="H264" size="2675036024" >
+			<encodingOption id="1080P_1920_5120_192" name="1080P" profile="HIGH"  isEncodingComplete="true"/>
 			<bitrate video="5120.0" audio="192.0"/>
 			<p2pMetaUrl></p2pMetaUrl>
-			<source><![CDATA[http://asia.vod.linetv.edgesuite.net/global/read/TVCAST_2014_12_02_2/36C21C3434A830088A3_muploader_n_1080P_1920_5120_192.mp4?__gda__=1425553035_5c72425b8ad8c2887d3aaf0a92dd514e]]></source>
+			<source><![CDATA[http://asia.vod.linetv.edgesuite.net/global/read/TVCAST_2014_12_02_2/36C21C3434A830088A3_muploader_n_1080P_1920_5120_192.mp4?__gda__=1426660622_4830bdd050c6d13e4226f96549db571f]]></source>
 		</video>
 	</videos>
 	
-	<streams>
-		<stream type="HLS">
-			<key type="param" name="__gda__">1425553035_620c0a064b209219b0abbcd68074e6b8</key>
-			<source><![CDATA[http://asia.vod.linetv.edgesuite.net/global/read/TVCAST_2014_12_02_3/36C21C3434A830088A3_muploader_n_480P_854_1024_128_adoptive.m3u8]]></source>
-		</stream>
-	</streams>
-	
-	
-	 
 	<captions>
-		<caption language="tw" country="TW" locale="tw_TW" label="中文" sublabel="繁體">
-			<![CDATA[../xml/dreamHigh08_TH.xml]]>
-		</caption>
-		<caption language="tw" country="KO" locale="ko_KO" label="한국어">
-			<![CDATA[../xml/dreamHigh08_KO.xml]]>
-		</caption>
+		<caption language="th" country="TH" locale="th_TH" label="ไทย"><![CDATA[http://asia.vod.linetv.edgesuite.net/global_meta/read/TVCAST_2014_12_02_3/36C21C3434A830088A3_muploader_n_480P_854_1024_128-1421374150050_th_TH.ttml?__gda__=1426660622_47445fecbeb64caa549299c8f8419848]]></caption>
 	</captions>
 	
+	
 	<thumbnails>
+		
 		<thumbnail time="403.0"><![CDATA[http://tv-rmcnmv-pt.line-apps.com/tvcast/2014/12/02/964/36C21C3434A830088A3_muploader_n_480P_854_1024_128_s80_2.jpg]]></thumbnail>
+		
 		<thumbnail time="1209.0"><![CDATA[http://tv-rmcnmv-pt.line-apps.com/tvcast/2014/12/02/964/36C21C3434A830088A3_muploader_n_480P_854_1024_128_s80_4.jpg]]></thumbnail>
+		
 		<thumbnail time="2015.0"><![CDATA[http://tv-rmcnmv-pt.line-apps.com/tvcast/2014/12/02/964/36C21C3434A830088A3_muploader_n_480P_854_1024_128_s80_6.jpg]]></thumbnail>
+		
 		<thumbnail time="2821.0"><![CDATA[http://tv-rmcnmv-pt.line-apps.com/tvcast/2014/12/02/964/36C21C3434A830088A3_muploader_n_480P_854_1024_128_s80_8.jpg]]></thumbnail>
+		
 		<thumbnail time="3627.0"><![CDATA[http://tv-rmcnmv-pt.line-apps.com/tvcast/2014/12/02/964/36C21C3434A830088A3_muploader_n_480P_854_1024_128_s80_10.jpg]]></thumbnail>
+		
 	</thumbnails>
 	
 </videoSource>

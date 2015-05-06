@@ -219,7 +219,8 @@ rmc.player.flash.load = function load(playerEle) {
 		} else {
 			param.outKey = prop.video.key;
 		}*/
-		param.api = getPlayUrl();
+
+		param.api = prop.debugApi || getPlayUrl();
 		if (prop.error.isError == true) {
 			param.ermsg = prop.error.message;
 			return param;
@@ -269,9 +270,12 @@ rmc.player.flash.load = function load(playerEle) {
 			param.isResizableCoverImage = prop.poster.resizable;
 		}
 
+		param.debugIsWebTestMode = prop.debugIsWebTestMode;
 		param.debugVID = prop.debugVID;
+		param.debugCaptionFont = prop.debugCaptionFont;
 		param.debugIsRealID = prop.debugIsRealID;
 		param.debugIsProtocolPD = prop.debugIsProtocolPD;
+		param.debugUseHardwareDecoder = prop.debugUseHardwareDecoder;
 		param.debugCaptionList = prop.debugCaptionList;
 
 		var flashParam = {};
@@ -578,17 +582,17 @@ rmc.player.env = {
 		region: {
 			GLOBAL:{
 				api:"http://global-nvapis.line.me/linetv/rmcnmv/vod_play_videoInfo.json"
-				, module:"http://tv-rmcnmv.line-apps.com/resources/flash/LineTvVODPlayer.0.8.9.2.swf"
+				, module:"swf/LineTvVODPlayer.swf"
 				,isGlobal:true
 			}
 			, LOCAL:{
 				api:"http://play.rmcnmv.naver.com/vod/play"
-				, module:"http://play.rmcnmv.naver.com/resources/flash/LineTvVODPlayer.0.8.9.2.swf"
+				, module:"swf/LineTvVODPlayer.swf"
 				,isGlobal:false
 			}
 			, ASIA:{
 				api:"http://global-nvapis.line.me/linetv/rmcnmv/vod_play_videoInfo.json"
-				, module:"http://tv-rmcnmv.line-apps.com/resources/flash/LineTvVODPlayer.0.8.9.2.swf"
+				, module:"swf/LineTvVODPlayer.swf"
 				,isGlobal:true
 			}
 		}

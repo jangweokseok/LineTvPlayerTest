@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="http://dev.play.rmcnmv.naver.com/resources/js/rmcplayer_g_loader.0.0.2.js"></script>
+    <div id="RMCDIV1" style="width:854px;height:480px;"> </div>
+    <script type="text/javascript">
+        var properties = rmc.player.getDefaultProperties();
+        properties.video.id = "0921815B1CB73264EFA5A26D7F39FD5EFBC1";
+        properties.video.key = "V126104663e9eb15f0b9dfc00f15df45674a314611470dd602edbfc00f15df45674a3";
+        properties.outKeyMode = true;
+        var rmcplayer = rmc.player.create(document.getElementById("RMCDIV1"), "KR", "en_US", properties);
+
+        // jS->SWF 재생중지
+        function closeButton() {
+            var flash = rmc.player.FlashObject.find(properties.id);
+            console.log(flash);
+            flash.closeVideo();
+        }
+
+        // SWF -> JS
+        function debugVideoPlayTime(time){
+            console.log(time);
+        }
+
+    </script>
+
+</head>
+<body>
+    <input type="button" value="stop" onclick="closeButton();">
+</body>
+</html>

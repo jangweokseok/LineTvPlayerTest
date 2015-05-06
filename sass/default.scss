@@ -1,0 +1,133 @@
+@charset "utf-8";
+
+body {
+  //background-color: #cccccc;
+}
+
+body, p, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd, table, th, td, form, fieldset, legend, input, textarea, button, select {
+  margin: 0;
+  padding: 0;
+}
+
+body, input, textarea, select, button, table {
+  font-family: Arial,Helvetica,'Apple SD Gothic Neo',applegothic,sans-serif;
+  font-size: 17px;
+  color: #141414;
+}
+
+a {
+  text-decoration: none;
+  color: #3c3c3c;
+  &:hover, &:active, &:focus {
+    text-decoration: none;
+  }
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+img, button {
+  border: 0;
+}
+
+img {
+  vertical-align: top;
+}
+
+input {
+  border: 0;
+}
+
+
+.mytable {
+  th, td {
+    border: 1px solid #cccccc;
+    vertical-align: top;
+    padding: 5px 5px 5px 5px;
+  }
+}
+
+#wrap {
+  position: relative;
+  min-width: 1280px;
+}
+
+
+#header {
+  position: fixed;
+  z-index: 3000;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 1280px;
+  min-width: 1280px;
+  height: 64px;
+}
+.header_bg {
+
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #000;
+}
+
+
+.gnb {
+  position: relative;
+  .logo > a {
+    background-image: url(http://tv-img.line-apps.com/pc/img/sp_linetv3.png);
+    background-repeat: no-repeat;
+  }
+}
+
+.linetv {
+  float: left;
+  width: 148px;
+  height: 28px;
+  background-position: 0 -200px;
+}
+
+
+.clip_end {
+  position: relative;
+  padding: 70px 0 80px 3px;
+  border-bottom: 1px solid #f2f2f2;
+  width: 1600px;
+  zoom: 1;
+  &:after {
+    content: '';
+    clear: both;
+    display: block;
+  }
+  .player {
+    float: left;
+    width: 900px;
+    padding: 0 5px;
+    height: 506px;
+    margin: 0 auto;
+  }
+  .episode {
+    float: left;
+    position: relative;
+  }
+  &.cinema {
+    float: none;
+    width: auto;
+    height: auto;
+    background: #222;
+  }
+}
+
+@media all and (min-width:1100px){
+  .clip_end {
+    .player {width: 1148px;  height: 646px;}
+  }
+}
+
+
+
+
